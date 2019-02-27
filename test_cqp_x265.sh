@@ -38,11 +38,15 @@ binDir=$testDir/bin/$rcSet/$vender
 EXE=x265
 
 #for ((iSpeed=0; iSpeed < ${#arraySpeed[*]}; iSpeed ++))
-for ((iSpeed=7; iSpeed < 9; iSpeed ++))
+for ((iSpeed=0; iSpeed < 4; iSpeed ++))
 do
   speed=${arraySpeed[$iSpeed]}
   speedDir=$binDir/speed_$speed
   mkdir -p $speedDir
+  mkdir -p $speedDir/classB
+  mkdir -p $speedDir/classC
+  mkdir -p $speedDir/classD
+  mkdir -p $speedDir/classE
   rm $speedDir/classB/*.bin
   rm $speedDir/classC/*.bin
   rm $speedDir/classD/*.bin
@@ -52,7 +56,7 @@ do
   do
     for kQp in 0 1 2 3
     	do
-	if [ $jInput -eq 10 -o $jInput -eq 14 -o $jInput -eq 17 ]
+	if [ $jInput -eq 10 -o $jInput -eq 14 -o $jInput -eq 17 -o $jInput -eq 4 ]
 	then
       		$EXE --input $inputDir/${arrayInput[$jInput]} --input-res ${arrayRes[$jInput]} --fps ${arrayFps[$jInput]} -f ${arrayNumFrame[$jInput]} -p $speed --qp ${arrayqp[$kQp]} --psnr --ssim --tune=psnr --keyint=-1 -o $speedDir/${arrayInput[$jInput]}_set$kQp.bin
 	fi
