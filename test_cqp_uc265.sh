@@ -34,6 +34,8 @@ arrayLevel=(5   5   5   5
             2.1 2.1 2.1 2
             4   4   4)
 
+arrayqp=(22 27 32 37)
+
 declare -A arrayQP
 
 arrayQP[0,0]=21
@@ -126,7 +128,7 @@ binDir=$testDir/bin/$rcSet/$vender
 #EXE=$workDir/UC265/bin/Linux/UC265AppEncoder
 EXE=~/git/uc265/UC265AppEncoderUbuntu
 
-for ((iSpeed = 5; iSpeed <= 12; iSpeed ++))
+for ((iSpeed = 0; iSpeed <= 15; iSpeed ++))
 do
   speed=$iSpeed
   speedDir=$binDir/speed_$speed
@@ -136,17 +138,17 @@ do
   mkdir -p $speedDir/classD
   mkdir -p $speedDir/classE
   rm $speedDir/classB/*.bin
-  rm $speedDir/classC/*.bin
-  rm $speedDir/classD/*.bin
-  rm $speedDir/classE/*.bin
+ # rm $speedDir/classC/*.bin
+ # rm $speedDir/classD/*.bin
+ # rm $speedDir/classE/*.bin
 
   for ((jInput = 0; jInput < ${#arrayInput[*]}; jInput ++))
   do
     for kQp in 0 1 2 3
     do
-	if [ $jInput -eq 10 -o $jInput -eq 14 -o $jInput -eq 17 -o $jInput -eq 4 ]
+	if [ $jInput -eq 4 ]
 	then
-     		 $EXE -i $inputDir/${arrayInput[$jInput]} -w ${arrayWidth[$jInput]} -h ${arrayHeight[$jInput]} -fps ${arrayFps[$jInput]} -f ${arrayNumFrame[$jInput]} --Level=${arrayLevel[$jInput]} -speed $speed -q ${arrayQP[$jInput,$kQp]} -b $speedDir/${arrayInput[$jInput]}_set$kQp.bin
+     		 $EXE -i $inputDir/${arrayInput[$jInput]} -w ${arrayWidth[$jInput]} -h ${arrayHeight[$jInput]} -fps ${arrayFps[$jInput]} -f ${arrayNumFrame[$jInput]} --Level=${arrayLevel[$jInput]} -speed $speed -q ${arrayqp[$kQp]} -b $speedDir/${arrayInput[$jInput]}_set$kQp.bin
 	fi
     done
   done
